@@ -1,12 +1,11 @@
 #!/bin/bash
 
-CONFIG_DIR="/usr/local/etc"
-
-if [[ -f $CONFIG_DIR/dump.cfg ]]; then
-    source $CONFIG_DIR/dump.cfg
+CONFIG_FILE="${DUMP_TXT_CONFIG_FILE:-/usr/local/etc/dump.cfg}"
+if [[ -f $CONFIG_FILE ]]; then
+  source $CONFIG_FILE
 else
-    echo "Missing condiguration: $CONFIG_DIR/dump.cfg" >&2
-    return 1
+  echo "Missing configuration: $CONFIG_FILE" >&2
+  return 1
 fi
 
 function add() {

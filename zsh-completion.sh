@@ -1,16 +1,16 @@
 #compdef dump
 
 _dump() {
-  local cur contexts dump_file
+  local cur contexts config_file dump_file
 
   cur="${words[CURRENT]}"
 
-  # TODO config could be somewhere else
-  if [[ -f /usr/local/etc/dump.cfg ]]; then
-      source /usr/local/etc/dump.cfg
+  config_file="${DUMP_TXT_CONFIG_FILE:-/usr/local/etc/dump.cfg}"
+  if [[ -f $config_file ]]; then
+    source $config_file
   else
-      print "Konfigurationsdatei nicht gefunden: /usr/local/etc/dump.cfg" >&2
-      return 1
+    echo "Missing configuration: $config_file" >&2
+    return 1
   fi
 
   contexts=($(grep -o "@[a-zA-Z0-9_]*" "$DUMP_FILE" 2>/dev/null | sort | uniq))
