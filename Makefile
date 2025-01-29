@@ -7,10 +7,14 @@ install:
 	mkdir -p "$(INSTALL_DIR)"
 	install -m 755 dump.sh $(INSTALL_DIR)/dump
 	@echo "install zsh completion..."
-	@mkdir -p $(ZSH_COMPLETION_DIR)
+	mkdir -p $(ZSH_COMPLETION_DIR)
 	install -m 644 zsh-completion.sh $(ZSH_COMPLETION_DIR)/_dump
 	@echo "install configuration..."
 	install -m 644 dump.cfg $(CONFIG_FILE)
+	@if [ -n "$(SUDO_USER)" ]; then \
+		chown $(SUDO_USER) $(CONFIG_FILE); \
+		chmod u+w $(CONFIG_FILE); \
+	fi
 	@echo "installation finished."
 
 uninstall:

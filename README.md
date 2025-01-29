@@ -24,6 +24,12 @@ Also, zsh is currently assumed, although there would be a completion script for 
 (sudo) make uninstall CONFIG_FILE="$HOME/.dump.cfg"
 ```
 
+set a global variable to the location in zshrc...
+
+```zsh
+export DUMP_TXT_CONFIG_FILE="$HOME/.dump.cfg"
+```
+
 ## Configure
 
 Change value(s) in /usr/local/etc/dump.cfg or custom config file location.
