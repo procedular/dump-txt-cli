@@ -20,7 +20,7 @@ function list() {
     local line_number=1
     while IFS= read -r line; do
       if [[ -z "$search_term" || "$line" == *"$search_term"* ]]; then
-        highlighted_line=$(echo "$line" | sed -E 's/(@[a-zA-Z0-9_]+)/\x1b[1m\1\x1b[0m/g')
+        highlighted_line=$(echo "$line" | sed -E 's/(@[^[:space:]]+)/\x1b[1m\1\x1b[0m/g')
         printf "%3d %s\n" "$line_number" "$highlighted_line"
       fi
       ((line_number++))

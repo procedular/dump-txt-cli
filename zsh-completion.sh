@@ -13,6 +13,10 @@ _dump() {
     return 1
   fi
 
-  contexts=($(grep -o "@[a-zA-Z0-9_]*" "$DUMP_FILE" 2>/dev/null | sort | uniq))
+  contexts=()
+  while IFS= read -r context; do
+    contexts+=("$context")
+  done < <(grep -o "@[^[:space:]]*" "$DUMP_FILE" 2>/dev/null | sort -u)
+
   _describe 'contexts' contexts
 }
