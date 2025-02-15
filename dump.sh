@@ -46,6 +46,19 @@ function delete() {
       return 1
     fi
 
+    # Zeileninhalt abrufen
+    local line_content
+    line_content=$(sed -n "${line_number}p" "$DUMP_FILE")
+
+    # Inhalt ausgeben und Bestätigung einholen
+    echo "You are about to delete the following line:"
+    echo "[$line_number] $line_content"
+    read -p "Are you sure? (y/N): " confirm
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+      echo "Deletion aborted."
+      return 0
+    fi
+
     if [[ "$OSTYPE" == "darwin"* ]]; then
         sed -i "" "${line_number}d" "$DUMP_FILE"
     else
